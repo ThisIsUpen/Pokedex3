@@ -19,7 +19,9 @@ class Pokemon {
     private var _height: String!
     private var _weight: String!
     private var _baseAttack: String!
-    private var _nextEvolutionText: String!
+    private var _nextEvoName: String!
+    private var _nextEvoLevel: String!
+    private var _nextEvoId: String!
     private var _pokemonURL: String!
     
     var name: String {
@@ -71,11 +73,25 @@ class Pokemon {
         return _baseAttack
     }
     
-    var nextEvolutionText: String {
-        if _nextEvolutionText == nil {
-            _nextEvolutionText = ""
+    var nextEvoName: String {
+        if _nextEvoName == nil {
+            _nextEvoName = ""
         }
-        return _nextEvolutionText
+        return _nextEvoName
+    }
+    
+    var nextEvoLevel: String {
+        if _nextEvoLevel == nil {
+            _nextEvoLevel = ""
+        }
+        return _nextEvoLevel
+    }
+    
+    var nextEvoId: String {
+        if _nextEvoId == nil {
+            _nextEvoId = ""
+        }
+        return _nextEvoId
     }
     
     
@@ -102,6 +118,69 @@ class Pokemon {
                 if let weight = dict["weight"] as? String {
                     self._weight = weight
                 }
+                
+                if let descriptions = dict["descriptions"] as? [Dictionary<String, String>], descriptions.count > 0 {
+                    if let uri = descriptions[0]["resource_uri"] {
+                        let description_URL = "\(BASE_URL)\(uri)"
+                        
+                        Alamofire.request(description_URL).responseJSON(completionHandler: { (descriptionResponse) in
+                            if let descDict = descriptionResponse.result.value as? Dictionary<String, Any> {
+                                if let description = descDict["description"] as? String {
+                                    let newDescription = description.replacingOccurrences(of: "POKMON", with: "Pokemon")
+                                    self._description = newDescription
+                                }
+                            }
+                            completed()
+                        })
+                    }
+                    
+                }
+                
+                if let types = dict["types"] as? [Dictionary<String, String>], types.count > 0 {
+                    
+                    if let name = types[0]["name"] {
+                        self._type = name.capitalized
+                    }
+                    
+                    if types.count > 1 {
+                        for x in 1..<types.count {
+                            if let name = types[x]["name"] {
+                                self._type! += "/\(name.capitalized)" //here if self.type is nil for the first time then it'll not append and give error. Hence for the first time it has been given a value from the 0th index and henceforth iterated to append the value.
+                            }
+                            
+                        }
+                    }
+                    
+                } else {
+                    self._type = "Unknown"
+                }
+                
+                if let evolutions = dict["evolutions"] as? [Dictionary<String, Any>], evolutions.count > 0 {
+                    if let nextEvo = evolutions[0]["to"] as? String {
+                        if nextEvo.range(of: "mega") == nil {
+                            self._nextEvoName = nextEvo
+                            
+                            if let nextLvl = evolutions[0]["level"] as? Int {
+                                self._nextEvoLevel = "\(nextLvl)"
+                                
+                            } else {
+                                self._nextEvoLevel = ""
+                            }
+                            
+                            if let resource_uri = evolutions[0]["resource_uri"] as? String {
+                                let newStr = resource_uri.replacingOccurrences(of: "/api/v1/pokemon/", with: "")
+                                let nextEvo = newStr.replacingOccurrences(of: "/", with: "")
+                                
+                                self._nextEvoId = nextEvo
+                            }
+                        }
+                    }
+                } else {
+                    self._nextEvoId = ""
+                    self._nextEvoName = ""
+                    self._nextEvoLevel = ""
+                }
+                
                 
             }
             completed()

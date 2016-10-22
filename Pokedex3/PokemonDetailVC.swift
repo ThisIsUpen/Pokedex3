@@ -12,6 +12,7 @@ class PokemonDetailVC: UIViewController {
 
     var pokemon: Pokemon!
     
+    @IBOutlet weak var mainLbl: UILabel!
     @IBOutlet weak var mainImg: UIImageView!
     @IBOutlet weak var descriptionLbl: UILabel!
     @IBOutlet weak var typeLbl: UILabel!
@@ -28,6 +29,7 @@ class PokemonDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainLbl.text = self.pokemon.name.capitalized
         let image = UIImage(named: "\(self.pokemon.pokeId)")
         
         self.mainImg.image = image
@@ -50,6 +52,19 @@ class PokemonDetailVC: UIViewController {
         self.weightLbl.text = self.pokemon.weight
         self.defenseLbl.text = self.pokemon.defence
         self.baseAttackLbl.text = self.pokemon.baseAttack
+        
+        self.descriptionLbl.text = self.pokemon.description
+        self.typeLbl.text = self.pokemon.type
+        
+        if self.pokemon.nextEvoId == "" {
+            self.nextEvoLbl.text = "No Further Evolution"
+            self.nextEvoImg.isHidden = true
+        } else {
+            self.nextEvoImg.isHidden = false
+            self.nextEvoImg.image = UIImage(named: self.pokemon.nextEvoId)
+            
+            self.nextEvoLbl.text = "Next Evolution: \(self.pokemon.nextEvoName) - Level \(self.pokemon.nextEvoLevel)"
+        }
     }
 
     @IBAction func backBtnPressed(_ sender: UIButton) {
