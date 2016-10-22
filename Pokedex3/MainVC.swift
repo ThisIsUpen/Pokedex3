@@ -93,6 +93,15 @@ class MainVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        let poke: Pokemon!
+        
+        if inSearchMode {
+            poke = filteredPokemons[indexPath.row]
+        } else {
+            poke = pokemons[indexPath.row]
+        }
+        
+        performSegue(withIdentifier: "PokemonDetailVC", sender: poke)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -125,6 +134,16 @@ class MainVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         } else {
             musicPlayer.play()
             sender.alpha = 1.0
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PokemonDetailVC" {
+            if let destination = segue.destination as? PokemonDetailVC {
+                if let poke = sender as? Pokemon {
+                    destination.pokemon = poke
+                }
+            }
         }
     }
 }

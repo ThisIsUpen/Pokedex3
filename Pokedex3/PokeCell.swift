@@ -9,8 +9,11 @@
 import UIKit
 
 class PokeCell: UICollectionViewCell {
+    
     @IBOutlet weak var cellThumb: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
+    
+    var pokemon: Pokemon!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -19,8 +22,17 @@ class PokeCell: UICollectionViewCell {
         
     }
     
-    func updateUI(_ pokemon: Pokemon) {
+   /* func updateUI(pokemon: Pokemon) {
         cellThumb.image = UIImage(named: "\(pokemon.pokeId)")
         nameLbl.text = pokemon.name
+    }
+ */
+    
+    func updateUI(_ pokemon: Pokemon) {
+        
+        self.pokemon = pokemon
+        
+        cellThumb.image = UIImage(named: "\(self.pokemon.pokeId)")
+        nameLbl.text = self.pokemon.name
     }
 }
