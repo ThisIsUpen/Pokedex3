@@ -195,7 +195,7 @@
                                                 </segments>
                                                 <color key="tintColor" red="0.91850417849999999" green="0.3258239329" blue="0.31898528339999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </segmentedControl>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ois-vs-rsr">
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ois-vs-rsr">
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ahx-YT-PpG">
                                                         <constraints>
@@ -203,12 +203,16 @@
                                                             <constraint firstAttribute="height" constant="100" id="qsN-GL-GgT"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="SdR-MA-JBE">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="SdR-MA-JBE">
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="Ahx-YT-PpG" firstAttribute="top" secondItem="Ois-vs-rsr" secondAttribute="top" id="FOD-pU-mWx"/>
+                                                    <constraint firstItem="Ahx-YT-PpG" firstAttribute="leading" secondItem="Ois-vs-rsr" secondAttribute="leading" id="oD5-1c-Spt"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <constraints>
@@ -380,7 +384,7 @@
                             <constraint firstAttribute="trailing" secondItem="gjh-Ag-Q5g" secondAttribute="trailing" id="L2w-8n-l5X"/>
                             <constraint firstItem="K9w-CA-3za" firstAttribute="centerX" secondItem="3oN-ZZ-h1l" secondAttribute="centerX" id="LKO-yD-bKq"/>
                             <constraint firstItem="tiy-mQ-xx5" firstAttribute="leading" secondItem="3oN-ZZ-h1l" secondAttribute="leading" id="bn5-go-CzM"/>
-                            <constraint firstItem="9qK-wC-EVW" firstAttribute="top" secondItem="tiy-mQ-xx5" secondAttribute="bottom" constant="8" id="dlh-NJ-E8i"/>
+                            <constraint firstItem="9qK-wC-EVW" firstAttribute="top" secondItem="tiy-mQ-xx5" secondAttribute="bottom" constant="30" id="dlh-NJ-E8i"/>
                             <constraint firstItem="kHl-hD-ZUP" firstAttribute="top" secondItem="K9w-CA-3za" secondAttribute="bottom" id="irz-P9-1ie"/>
                             <constraint firstItem="K9w-CA-3za" firstAttribute="top" secondItem="gjh-Ag-Q5g" secondAttribute="bottom" constant="14" id="jLO-1V-PN6"/>
                             <constraint firstItem="9qK-wC-EVW" firstAttribute="leading" secondItem="3oN-ZZ-h1l" secondAttribute="leadingMargin" id="sa5-vX-94H"/>
@@ -394,6 +398,7 @@
                         <outlet property="descriptionLbl" destination="SdR-MA-JBE" id="u13-kg-NYN"/>
                         <outlet property="heightLbl" destination="lZw-n8-DxG" id="53P-oR-gHS"/>
                         <outlet property="mainImg" destination="Ahx-YT-PpG" id="oTI-h9-drs"/>
+                        <outlet property="mainLbl" destination="xKb-17-uIL" id="ZH8-ma-2jc"/>
                         <outlet property="nextEvoImg" destination="NsI-G6-cHA" id="ycZ-B4-ZXU"/>
                         <outlet property="nextEvoLbl" destination="CRS-3C-TrR" id="8JO-F4-OXY"/>
                         <outlet property="pokeIdLbl" destination="RGx-3L-xdK" id="Hrx-Tt-gDG"/>
@@ -403,7 +408,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4W1-Al-w4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="855" y="138.38028169014083"/>
+            <point key="canvasLocation" x="853.60000000000002" y="138.0809595202399"/>
         </scene>
     </scenes>
     <resources>
